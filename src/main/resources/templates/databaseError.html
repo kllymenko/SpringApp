@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>DATABASE ERROR</title>
+    <!-- See configuration in WebMvcConfig.java -->
+    <link href="/css/app.css" rel="stylesheet" media="screen"/>
+    <link data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <script data-th-src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script data-th-src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script data-th-src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ERROR</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-danger" data-th-utext="${error}"></p>
+            </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" data-th-href="@{/}">Close</a>
+                </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

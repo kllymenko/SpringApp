@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Products</title>
+    <!-- See configuration in WebMvcConfig.java -->
+    <link href="/css/app.css" rel="stylesheet" media="screen"/>
+    <link data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <script data-th-src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script data-th-src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script data-th-src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<div class="container">
+    <!-- define the fragment that can be used on any other page -->
+    <nav class="navbar navbar-default" data-th-fragment="top"
+         style="border:0px solid #ccc;padding:5px;margin-bottom:20px;background-color:#eee;text-align:left;">
+        <a class="btn btn-outline-success" data-th-href="@{/}">Products</a>
+        | <a class="btn btn-outline-success" data-th-href="@{/addProduct}">Add Product</a>
+        | <a class="btn btn-outline-success" data-th-href="@{/productsByProvider}">Products by provider</a>
+    </nav>
+
+    <h2>Products</h2>
+
+    <table class="table table-hover">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Provider</th>
+            <th>Change</th>
+            <th>Delete</th>
+        </tr>
+        <tr data-th-each="productInfo : ${allProducts}">
+            <td data-th-utext="${productInfo.key.ID}">..</td>
+            <td data-th-utext="${productInfo.key.name}">..</td>
+            <td data-th-utext="${productInfo.key.price}">..</td>
+            <td data-th-utext="${productInfo.value}">..</td>
+            <td>
+                <div class="dropdown open">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Change
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <form data-th-action="@{/modalChangeName}" method="GET">
+                            <input type="hidden"
+                                   name="prodID"
+                                   data-th-value="${productInfo.key.ID}"/>
+                            <button type="submit" class="dropdown-item">Name</button>
+                        </form>
+                        <form data-th-action="@{/modalChangePrice}" method="GET">
+                            <input type="hidden"
+                                   name="prodID"
+                                   data-th-value="${productInfo.key.ID}"/>
+                            <button type="submit" class="dropdown-item">Price</button>
+                        </form>
+                        <form data-th-action="@{/modalChangeProvider}" method="GET">
+                            <input type="hidden"
+                                   name="prodID"
+                                   data-th-value="${productInfo.key.ID}"/>
+                            <button type="submit" class="dropdown-item">Provider</button>
+                        </form>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <form data-th-action="@{/deleteProductByID}" method="POST">
+                    <input type="hidden"
+                           name="prodID"
+                           data-th-value="*{productInfo.key.ID}"/>
+                    <button class="btn btn-success" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
